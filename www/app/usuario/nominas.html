@@ -1,0 +1,151 @@
+<ion-view  title="Nomina">
+<ion-content overflow-scroll="true">
+<ion-tabs class="tabs-positive tabs-icon-top">
+<ion-tab title="Nomina" icon-on="icon ion-android-contact" icon-off="icon ion-android-contact">
+<ion-content class="center bg">
+<br>
+
+<div  ng-controller="nominasCtrl" ng-init="getMiNomina();">
+    <div class="max-alto c9" style="text-align: center; padding-left: 10px;padding-right: 10px;">
+        <center> 
+    <h2><span style='font-size: 16px;color:#FFF;'>INFORMACION DE MI</span><br>MI NOMINA</h2>
+    <br><br>
+     
+    </center>
+        <div id="mis-nominas" style="margin-top:40px;">
+
+            
+                <div class="c4"  ng-if="miNomina.length > 0" style=''>
+                    <div class="ranking-num circle" id="ranking" style="z-index:1000;box-shadow: -1px 8px 16px -1px rgba(0,0,0,0.58);">1</div>
+                    <br>
+                    <div class="crosscover">
+                        <div class="crosscover-overlay">
+
+                            <div class="crosscover-island">
+                                
+                                <h2 class="crosscover-title" style="color:#FFF;">{{miNomina.nomina.nombre}}</h2>
+                            </div>
+                        </div>
+                        <ul class="crosscover-list">
+                            <li>
+                                <img src="../../image/usuarios/nomina-profile.png" alt="" style=" max-width: 100%;" ng-if="miNomina.nomina.escudo == 'false'"/>
+                                <img src="../../image/nominas/{{miNomina.nomina._id}}.jpg" alt="" style=" max-width: 100%;" ng-if="miNomina.nomina.escudo == 'true'"/>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="box-transparent" style="margin: 0;padding:5px;padding-top: 10px;width: 100%">
+                        <table width="100%" border="0">
+                            <tr>
+                                <td><div style="background-color:#64dd17;border-radius: 50%;width:25px;height: 25px;padding-top:2px;"><p style="font-size:18px;">C</p></div></td>
+                                <td style="text-align: right;font-size:14px;" colspan="2">{{miNomina.capitan.capitan.nombres}} {{miNomina.capitan.capitan.apellidos}}</td>
+                            </tr> 
+                            <tr>
+                                <td colspan="3">
+                                    <div style="margin-top:10px;border-top:1px solid #FFF;padding-top:10px;color:#FCDD68 ">PARTIDOS</div>
+                                </td>  
+                            </tr>
+                            <tr>
+                                <td style="text-align:center" width="33%" class="num-big">{{miNomina.nomina.historial.ganados}}</td>
+                                <td style="text-align:center" width="33%"class="num-big">{{miNomina.nomina.historial.empatados}}</td>
+                                <td style="text-align:center" width="33%" class="num-big">{{miNomina.nomina.historial.perdidos}}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:center" width="33%">GANADOS</td>
+                                <td style="text-align:center" width="33%">EMPATADOS</td>
+                                <td style="text-align:center" width="33%">PERDIDOS</td>
+                            </tr>
+                            <tr style="border:0px solid #FFF">
+                                <td colspan="3">
+                                <div>
+                                     
+                                    <div class="num-big enorme" style="margin-top:10px;border-top:1px solid #FFF;padding-top:10px;">
+                                    <br>{{miNomina.nomina.puntos}}</div>
+                                    <br>
+                                    <div style="color:#FCDD68 ">PUNTOS</div>
+                                    </div>
+                                </td>
+
+                            </tr> 
+                        </table>
+                    </div>
+                </div>
+                <br><br>
+                <div  style=''>
+                    <table class='tabla' border='0' style='border:0px' width='100%' >
+                        <tr ng-repeat="item in IntegrantesMiNomina">
+                 
+ <td width="32"><div class="ranking-num-list circle">{{$index + 1}}</div></td>
+                            <td width="50px;" height="50px;"><img src="../images/usuarios/default.png" alt="" class="circle responsive-img "></td>
+                            <td align="left"><span ">{{item.nombres}} </span>
+                            <br>
+                            <span>{{item.apellidos}}</span>
+                            <br> <span>{{item.telefono}} </span>    </td>
+                                                        <td align="left"><div class="num-list">{{item.puntaje}}</div></td>
+                            <td ><button ng-click="eliminar(item.username)" class="btn-reset btn-secundario" style="color: black">E</button></td>
+   
+                        </tr>
+                    
+
+                    </table>
+                    <br><br><br>
+                    <button ng-if="IntegrantesMiNomina.length > 0" class="btn-reset btn-secundario" ng-click="cargarAmigos();">Agregar</button>
+                    <br><br><br><br>
+                    <div ng-if="IntegrantesMiNomina.length == 0 && miNomina.length > 0" style="margin-top:50px;">
+                        Aun te falta agregar los integrantes de tu nomina.
+                                                <button class="btn-reset btn-secundario" ng-click="cargarAmigos();">Agregar</button>
+                    </div>
+                </div>
+                <div class="c12" ng-if="miNomina.length == 0">
+                    <h1>Que esperas? registra tu nomina.</h1>
+                    <br>
+                    <div style="width:40%;margin-left: 30%">
+                        <div class='custom-input-file'>
+                            <input type="file" uploader-model=Nomina.imagen" name="images" id="files">
+                            <div id="image" style=" width:100%; height:120px;">
+                                Suber una foto de tu nomina
+                                <img src="../../images/usuarios/nomina-profile.png" alt="" alt="" width="100%" height="120px"/>
+                            </div>
+                        </div>
+                        <br>
+                        <input type="text" placeholder="Nombre" ng-model="Nomina.nombre" class="box-text" style="width:80%;"/>
+                        <button  class="btn bg-btn-red" ng-click="crearNomina()">CREAR NOMINA</button>
+                    </div>
+                </div>
+               
+        </div>
+    </div>
+   
+</div>
+
+</ion-content>
+  </ion-tab>
+
+  <ion-tab title="Proximos retos" icon-on="icon ion-ios-football" icon-off="icon ion-ios-football">
+   <ion-content class="center bg">
+<br><br><br>
+ <div class="max-alto c3" style=" text-align: center;" ng-init="getNominaPertenezco();">
+        <h2><span style='font-size: 16px;color:#FFF;'>NOMINAS A LAS QUE</span><br> PERTENEZCO</h2>
+        
+        <br>
+        <div ng-if="NominasPertenezco.length == 0">
+            <h2 style='color:#FFF;'>Actualmente no has sido fichado por ninguna nomina</h2>
+        </div>
+        <table width="100%" align="center" class="tabla">
+            <tr ng-repeat="item in NominasPertenezco">
+                <td><div class="ranking-num-list circle">{{$index+1}}</div></td>
+                <td style="padding-top:5px;padding-bottom: 5px;">
+                  <img src="../../image/usuarios/nomina-profile.png" alt="" style="width:70px;border-radius:10px;border:5px solid #2C3B3C" ng-if="item.escudo == 'false'"/>
+                 <img src="../../image/nominas/{{item._id}}.jpg" alt="" style=" width: 70px;border-radius:10px;border:5px solid #2C3B3C" ng-if="item.escudo == 'true'"/>
+                </td>
+                <td>{{item.nombre}}</td>
+                <td><div class="num-list">{{item.puntos}}</div></td>
+            </tr>
+        </table>
+    </div>
+</ion-content>
+  </ion-tab>
+
+</ion-tabs>
+</ion-content>
+    
+</ion-view>

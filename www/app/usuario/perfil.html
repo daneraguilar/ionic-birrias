@@ -1,0 +1,107 @@
+<ion-view  title="Perfil">
+<ion-content overflow-scroll="true">
+<ion-tabs class="tabs-positive tabs-icon-top">
+<ion-tab title="Perfil" icon-on="icon ion-android-contact" icon-off="icon ion-android-contact">
+<ion-content class="center bg">
+<br><br><br>
+     <div class="row">
+        <div class="col">
+            <div  style="width: 140px; height:140px;display: inline-block;">  
+                        <div class="content-circle circle">     
+                            <p class="ranking">RANKING</p>
+                        <img src="" alt="" class="circle responsive-img img-perfil" width="100%" height="100%">
+                            <div class="ranking-num circle">1</div>    
+                        </div>
+                        <p class="name">{{usuario.nombres}}<br>{{usuario.apellidos}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="separador"></div>
+        <div class="row">
+            <div class="col">
+                <div class="box-transparent">
+                <table width="100%" border="0">
+                    <tr>
+                    <td>RETOS</td>
+                    <td>RETOS</td>
+                    </tr>
+                    <tr>
+                        <td><div class="num-big">{{usuario.partidos.jugados}}</div></td>
+                        <td><div class="num-big">{{usuario.partidos.ganados}}</div></td>
+                    </tr>
+                    <tr>
+                        <td>JUGADOS</td>
+                        <td>GANADOS</td>
+                    </tr>
+                </table>                
+            </div>
+            <div class="box-transparent">
+               <br>
+                    <div class="num-big enorme">{{usuario.partidos.ganados * 3}}</div>
+                    <br>
+                     PUNTOS
+            </div>
+            <button class="btn bg-btn-red" id="">BUSCAR AMIGOS</button>
+            </div>
+        </div>
+    </div>
+  </ion-content>
+  </ion-tab>
+
+  <ion-tab title="Amigos" icon-on="icon ion-android-contacts" icon-off="icon ion-android-contacts">
+      <ion-content class="center bg">
+<br><br><br>
+<div class="max-alto c6 " style=" text-align: center;  ">
+        <h2><span style='font-size: 16px;color:#FFF;'>RANKING</span><br>AMIGOS</h2>
+        <div class="separador" style="width:15%;margin-left: 42.5%;"></div>
+        
+        <div style="height:85%;overflow-y:auto;margin-top:10px;margin-left: 20px;">
+           
+                <div id="loading_amigos" style="display: none">
+                    Cargando...
+                </div>
+            <div ng-if="tieneAmigos === false">
+                <h1>Actualmente no tienes Amigos</h1>
+            </div>
+            
+   
+          <table width="100%" align="center" ng-if="tieneAmigos === true" class="tabla">
+                <tbody>
+                    <tr ng-repeat="item in amigos" ng-if="item.username != 'none@none.co'">
+                        <td width="28px" style="padding: 4px;"><div class="ranking-num-list circle">{{$index+1}}</div></td>
+                        <td width="42px;" height="42px;" >
+                            <img src="../images/usuarios/default.png" alt="" class="circle" style="width:46px;height:46px;" ng-if="item.photo == 'false'">
+                            <img src="../../image/usuarios/{{item._id}}.jpg" alt="" class="circle" style="width:46px;height:46px;" ng-if="item.photo == 'true'">
+                        </td>
+                        <td align="left"><span style="margin-left: 10px;font-family: 'fg-mediun-cond'">{{item.nombres}} {{item.apellidos}}</span></td>
+                        <td align="left"><div class="num-list">{{item.puntaje}}</div></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</ion-content>
+  </ion-tab>
+
+  <ion-tab title="Proximos retos" icon-on="icon ion-ios-football" icon-off="icon ion-ios-football">
+   <ion-content class="center bg">
+<br><br><br>
+ <div class="max-alto c3" style=" text-align: center;;">      
+     
+        <h2><span style='font-size: 16px;color:#FFF;'>PROXIMOS</span><br>PARTIDOS</h2>
+        <div class="separador" style="width:25%;margin-left: 36%;"></div> 
+      
+        <table width="90%" align="center" style="margin-top:20px;">
+            <tbody id="proximosPartidos">
+            </tbody>
+        </table>      
+    </div>
+</ion-content>
+  </ion-tab>
+
+</ion-tabs>
+</ion-content>
+    
+</ion-view>
